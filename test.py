@@ -28,18 +28,20 @@ def update_plot(i):
     #内積
     current_coordinates = numpy.dot(R, init_position)
 
+    x = numpy.array([1, 1 - current_coordinates[0]])
+    y = numpy.array([1, 1 + current_coordinates[1]])
+    z = numpy.array([1, 1 + current_coordinates[2]])
 
-    test = numpy.array([1, 1, 1])
-
-    ax.clear()
+    plt.cla()
 
     ax.set_xlim(0, 2)
     ax.set_ylim(0, 2)
     ax.set_zlim(0, 2)
 
-    ax.plot(test, test, test, "o", color="#cccccc", ms = 15)
+    ax.scatter3D(x, y, z)
 
-    ax.plot(current_coordinates, current_coordinates, current_coordinates, "o", color="#ff00cc", ms = 10)
+    #im = ax.plot(test, test, test, "o", color="#cccccc", ms = 15)
+    #im = ax.plot(current_coordinates, current_coordinates, current_coordinates, "o", color="#ff00cc", ms = 10)
 
 mode = "all_elev"
 server = tcp_server.tcp_server("0.0.0.0", 7000)
@@ -51,10 +53,6 @@ fig = plt.figure()
 
 ax = Axes3D(fig)
 
-ax.set_xlim(0, 2)
-ax.set_ylim(0, 2)
-ax.set_zlim(0, 2)
-
-ani = animation.FuncAnimation(fig, update_plot, frames = 180, interval = 1)
+ani = animation.FuncAnimation(fig, update_plot, interval = 100)
 
 plt.show()

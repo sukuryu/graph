@@ -25,6 +25,11 @@ class tcp_server:
         bufsize = 512
         while True:
             pitch_etc = client_socket.recv(bufsize).decode("ascii")
+
+            if pitch_etc == "r":
+                socket_close()
+                break
+
             self.data_list = pitch_etc.split(",")
 
             num_reg = re.compile("^[+-]?(\d*\.\d+|\d+\.?\d*)([eE][+-]?\d+|)\Z")
